@@ -59,6 +59,7 @@ public class Post extends BaseEntity {
 
 	public static Post of(AddPostRequestDto addPostRequestDto) {
 		Post post = Post.builder()
+			.title(addPostRequestDto.getTitle())
 			.content(addPostRequestDto.getPostContent())
 			.postType(PostType.valueOf(addPostRequestDto.getPostType()))
 			.comments(new ArrayList<>())
@@ -71,21 +72,6 @@ public class Post extends BaseEntity {
 	public static Post of(Post post) throws CloneNotSupportedException {
 		return (Post)post.clone();
 	}
-
-//	public static Post of(GetPostsMvo getPostsMvo) {
-//
-//		Post post = Post.builder()
-//			.id(getPostsMvo.getPostNo())
-//			.content(getPostsMvo.getContent())
-//			.postType(PostType.valueOf(getPostsMvo.getType()))
-//			.position(getPostsMvo.getPosition())
-//			.comments(new ArrayList<>())
-//			.postLikes(new ArrayList<>())
-//			.postTags(new ArrayList<>())
-//			.postAlcohols(new ArrayList<>())
-//			.build();
-//		return post;
-//	}
 
 	// 연관관계 편의 메서드.
 	public void addComment(Comment comment) {

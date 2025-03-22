@@ -4,6 +4,7 @@ import com.dssns.board.common.exception.ServiceException;
 import com.dssns.board.common.exception.ServiceExceptionCode;
 import com.dssns.board.entity.Comment;
 import com.dssns.board.entity.Post;
+import com.dssns.board.entity.PostType;
 import com.dssns.board.entity.common.YesOrNo;
 import com.dssns.board.repository.CommentRepository;
 import com.dssns.board.repository.PostRepository;
@@ -49,6 +50,9 @@ public class PostService {
       }
       if (editPostRequestDto.getPostContent() != null) {
         post.setContent(editPostRequestDto.getPostContent());
+      }
+      if (editPostRequestDto.getPostType() != null){
+        post.setPostType(PostType.valueOf(editPostRequestDto.getPostType()));
       }
       // Add other fields as necessary
       postRepository.save(post);

@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS comment;
 CREATE TABLE post (
                       post_no BIGINT NOT NULL AUTO_INCREMENT,
                       title VARCHAR(255),
@@ -19,6 +21,7 @@ CREATE TABLE comment (
                          last_modified_date DATETIME,
                          created_by BIGINT,
                          last_modified_by BIGINT,
-                         del_yn VARCHAR(1) DEFAULT 'N',
-                         CONSTRAINT fk_post FOREIGN KEY (post_no) REFERENCES Post(post_no)
+                         del_yn VARCHAR(1) DEFAULT 'N'
 );
+
+CREATE INDEX idx_post_no ON comment(post_no);
