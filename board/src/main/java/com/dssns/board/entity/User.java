@@ -1,7 +1,7 @@
 package com.dssns.board.entity;
 
-import com.dssns.board.common.entity.BaseEntity;
-import com.dssns.board.common.entity.Role;
+import com.dssns.common.entity.BaseEntity;
+import com.dssns.common.entity.Role;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

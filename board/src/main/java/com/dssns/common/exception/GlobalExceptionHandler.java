@@ -1,16 +1,13 @@
-package com.dssns.board.common.exception;
+package com.dssns.common.exception;
 
-import com.dssns.board.common.web.ApiResponse;
+import com.dssns.common.web.ApiResponse;
 import io.swagger.v3.oas.annotations.Hidden;
 import java.util.concurrent.atomic.AtomicReference;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Hidden

@@ -1,4 +1,4 @@
-package com.dssns.board.common.web;
+package com.dssns.common.web;
 
 import lombok.Builder;
 import lombok.Getter;

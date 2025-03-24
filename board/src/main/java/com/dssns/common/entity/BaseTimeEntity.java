@@ -1,4 +1,4 @@
-package com.dssns.board.common.entity;
+package com.dssns.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

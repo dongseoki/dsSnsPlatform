@@ -1,6 +1,6 @@
-package com.dssns.board.common.security;
+package com.dssns.common.security;
 
-import com.dssns.board.common.entity.Role;
+import com.dssns.common.entity.Role;
 import java.util.Collection;
 
 public interface AbstractUserAuthInfo {

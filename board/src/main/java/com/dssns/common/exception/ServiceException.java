@@ -1,4 +1,4 @@
-package com.dssns.board.common.exception;
+package com.dssns.common.exception;
 
 import lombok.Getter;
 
