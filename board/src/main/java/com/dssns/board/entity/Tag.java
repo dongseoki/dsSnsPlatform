@@ -1,6 +1,6 @@
 package com.dssns.board.entity;
 
-import com.dssns.board.entity.common.BaseEntity;
+import com.dssns.board.common.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

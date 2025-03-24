@@ -1,4 +1,4 @@
-package com.dssns.board.entity;
+package com.dssns.board.common.entity;
 
 public enum Role {
 	ROLE_USER("ROLE_USER"),

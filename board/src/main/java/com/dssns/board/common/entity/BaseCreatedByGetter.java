@@ -1,4 +1,4 @@
-package com.dssns.board.entity.common;
+package com.dssns.board.common.entity;
 
 public interface BaseCreatedByGetter {
 	Long getCreatedBy();

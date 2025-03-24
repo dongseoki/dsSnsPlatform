@@ -1,6 +1,6 @@
 package com.dssns.board.entity;
 
-import com.dssns.board.entity.common.BaseEntity;
+import com.dssns.board.common.entity.BaseEntity;
 import com.dssns.board.webdto.AddPostRequestDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

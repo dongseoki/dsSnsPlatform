@@ -5,7 +5,7 @@ import com.dssns.board.common.exception.ServiceExceptionCode;
 import com.dssns.board.entity.Comment;
 import com.dssns.board.entity.Post;
 import com.dssns.board.entity.PostType;
-import com.dssns.board.entity.common.YesOrNo;
+import com.dssns.board.common.entity.YesOrNo;
 import com.dssns.board.repository.CommentRepository;
 import com.dssns.board.repository.PostRepository;
 import com.dssns.board.webdto.AddCommentRequestDto;
@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
