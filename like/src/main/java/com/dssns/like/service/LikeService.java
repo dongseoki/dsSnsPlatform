@@ -18,9 +18,10 @@ public class LikeService {
   public void likePost(Long userNo, Long postNo) {
     // TODO: Validate userNo and postNo
     log.info("Liking post with postNo: {} by userNo: {}", postNo, userNo);
-    // Implement the logic to like a post
-    Like newLike = Like.builder().refTbl("post").refId(postNo).build();
-    newLike.setCreatedBy(userNo);
+    Like newLike =
+    likeRepository.findByRefTblAndRefIdAndCreatedByAndDelYnIs("post", postNo, userNo, YesOrNo.N)
+        .orElse(Like.builder().refTbl("post").refId(postNo).createdBy(userNo).build());
+
     likeRepository.save(newLike);
   }
 
@@ -38,11 +39,15 @@ public class LikeService {
         });
   }
 
+  public int countLikesForPost(Long postNo) {
+    return likeRepository.countByRefTblAndRefIdAndDelYn("post", postNo, YesOrNo.N);
+  }
+
   public void likeComment(Long userNo, Long commentNo) {
     // TODO: Validate userNo and commentNo
-    log.info("Liking comment with commentNo: {} by userNo: {}", commentNo, userNo);
-    Like newLike = Like.builder().refTbl("comment").refId(commentNo).build();
-    newLike.setCreatedBy(userNo);
+    Like newLike =
+        likeRepository.findByRefTblAndRefIdAndCreatedByAndDelYnIs("comment", commentNo, userNo, YesOrNo.N)
+            .orElse(Like.builder().refTbl("comment").refId(commentNo).createdBy(userNo).build());
     likeRepository.save(newLike);
   }
 
@@ -57,5 +62,9 @@ public class LikeService {
               log.error("Like not found for commentNo: {} by userNo: {}", commentNo, userNo);
               throw new ServiceException(ServiceExceptionCode.LIKE_NOT_FOUND);
             });
+  }
+
+  public int countLikesForComment(Long commentNo) {
+    return likeRepository.countByRefTblAndRefIdAndDelYn("comment", commentNo, YesOrNo.N);
   }
 }

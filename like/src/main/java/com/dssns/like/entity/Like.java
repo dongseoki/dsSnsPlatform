@@ -13,6 +13,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -21,7 +22,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Setter
 @DynamicInsert
 @DynamicUpdate
-@Builder
+@SuperBuilder
 @Table(name = "tb_like")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

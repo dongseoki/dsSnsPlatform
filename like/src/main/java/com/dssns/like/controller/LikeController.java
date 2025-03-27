@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +48,16 @@ public class LikeController {
 		return ApiResponse.Success();
 	}
 
+	@Operation(summary = "[o]게시글 좋아요 개수", description = "게시글 좋아요 개수 API")
+	@GetMapping("/posts/{postNo}/like-count")
+	public ApiResponse<Integer> countLikesForPost(@PathVariable("postNo") Long postNo) {
+		log.info(">>> PostController.countLikesForPost");
+		int likeCount = likeService.countLikesForPost(postNo);
+		return ApiResponse.Success(likeCount);
+	}
+
+
+
 	@Operation(summary = "[o]댓글 좋아요", description = "댓글 좋아요 API")
 	@PostMapping("/comments/{commentNo}/like")
 	public ApiResponse<Void> likeComment(@PathVariable("commentNo") Long commentNo, @RequestParam Long userNo) {
@@ -61,5 +72,14 @@ public class LikeController {
 		log.info(">>> PostController.likeCancelComment");
 		likeService.likeCancelComment(userNo, commentNo);
 		return ApiResponse.Success();
+	}
+
+	// LikeController.java
+	@Operation(summary = "[o]댓글 좋아요 개수", description = "댓글 좋아요 개수 API")
+	@GetMapping("/comments/{commentNo}/like-count")
+	public ApiResponse<Integer> countLikesForComment(@PathVariable("commentNo") Long commentNo) {
+		log.info(">>> PostController.countLikesForComment");
+		int likeCount = likeService.countLikesForComment(commentNo);
+		return ApiResponse.Success(likeCount);
 	}
 }
