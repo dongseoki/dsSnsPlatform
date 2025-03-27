@@ -1,5 +1,9 @@
 package com.dssns.like.service;
 
+import com.dssns.common.entity.YesOrNo;
+import com.dssns.common.exception.ServiceException;
+import com.dssns.common.exception.ServiceExceptionCode;
+import com.dssns.like.entity.Like;
 import com.dssns.like.repository.LikeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,23 +19,43 @@ public class LikeService {
     // TODO: Validate userNo and postNo
     log.info("Liking post with postNo: {} by userNo: {}", postNo, userNo);
     // Implement the logic to like a post
+    Like newLike = Like.builder().refTbl("post").refId(postNo).build();
+    newLike.setCreatedBy(userNo);
+    likeRepository.save(newLike);
   }
 
   public void likeCancelPost(Long userNo, Long postNo) {
     // TODO: Validate userNo and postNo
     log.info("Cancelling like for post with postNo: {} by userNo: {}", postNo, userNo);
     // Implement the logic to cancel like on a post
+    likeRepository.findByRefTblAndRefIdAndCreatedByAndDelYnIs("post", postNo, userNo, YesOrNo.N)
+        .ifPresentOrElse(like -> {
+          like.setDelYn(YesOrNo.Y);
+          likeRepository.save(like);
+        }, () -> {
+          log.error("Like not found for postNo: {} by userNo: {}", postNo, userNo);
+          throw new ServiceException(ServiceExceptionCode.LIKE_NOT_FOUND);
+        });
   }
 
   public void likeComment(Long userNo, Long commentNo) {
     // TODO: Validate userNo and commentNo
     log.info("Liking comment with commentNo: {} by userNo: {}", commentNo, userNo);
-    // Implement the logic to like a comment
+    Like newLike = Like.builder().refTbl("comment").refId(commentNo).build();
+    newLike.setCreatedBy(userNo);
+    likeRepository.save(newLike);
   }
 
   public void likeCancelComment(Long userNo, Long commentNo) {
     // TODO: Validate userNo and commentNo
     log.info("Cancelling like for comment with commentNo: {} by userNo: {}", commentNo, userNo);
-    // Implement the logic to cancel like on a comment
+    likeRepository.findByRefTblAndRefIdAndCreatedByAndDelYnIs("comment", commentNo, userNo, YesOrNo.N)
+            .ifPresentOrElse(like -> {
+              like.setDelYn(YesOrNo.Y);
+              likeRepository.save(like);
+            }, () -> {
+              log.error("Like not found for commentNo: {} by userNo: {}", commentNo, userNo);
+              throw new ServiceException(ServiceExceptionCode.LIKE_NOT_FOUND);
+            });
   }
 }

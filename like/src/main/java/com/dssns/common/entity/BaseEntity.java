@@ -42,5 +42,9 @@ public class BaseEntity extends BaseTimeEntity implements BaseCreatedByGetter {
     public void setDelYn(YesOrNo delYn) {
         this.delYn = delYn;
     }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
 }
 
