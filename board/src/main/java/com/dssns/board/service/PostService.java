@@ -1,5 +1,9 @@
 package com.dssns.board.service;
 
+import com.dssns.common.event.NotificationEvent;
+import com.dssns.common.event.NotificationEventProducer;
+import com.dssns.common.event.enums.EventSourceType;
+import com.dssns.common.event.enums.EventType;
 import com.dssns.common.exception.ServiceException;
 import com.dssns.common.exception.ServiceExceptionCode;
 import com.dssns.board.entity.Comment;
@@ -17,6 +21,7 @@ import com.dssns.board.webdto.EditPostRequestDto;
 import com.dssns.board.webdto.GetPostCommentsResponseDto;
 import com.dssns.board.webdto.PostResponseDto;
 import jakarta.validation.Valid;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 public class PostService {
+  private final NotificationEventProducer notificationEventProducer;
   private final PostRepository postRepository;
   private final CommentRepository commentRepository;
 
@@ -104,6 +110,18 @@ public class PostService {
           .content(addCommentRequestDto.getCommentContent())
           .build();
       Comment savedComment = commentRepository.save(comment);
+
+      NotificationEvent notificationEvent = NotificationEvent.builder()
+          .eventType(EventType.COMMENT)
+          .receiverUserId(post.getCreatedBy())
+          .eventUserId(addCommentRequestDto.getCreateUserNo())
+          .eventSourceId(savedComment.getId())
+          .eventSourceType(EventSourceType.COMMENT)
+          .message(String.format("사용자 번호 %d님이 당신의 게시글에 댓글을 남겼습니다.", addCommentRequestDto.getCreateUserNo()))
+          .createdAt(Instant.now())
+          .build();
+
+      notificationEventProducer.publishNotificationEventCreated(notificationEvent);
       return new AddCommentResponseDto(savedComment.getId());
     } else {
       log.error("Post with id {} not found", postNo);

@@ -66,6 +66,9 @@ public class Post extends BaseEntity {
 			.postLikes(new ArrayList<>())
 			.postTags(new ArrayList<>())
 			.build();
+
+		// FIXME superbuilder 사용으로 변경.
+		post.setCreatedBy(addPostRequestDto.getCreateUserNo());
 		return post;
 	}
 

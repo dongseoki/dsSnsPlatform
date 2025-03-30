@@ -34,6 +34,33 @@ spring:
       port: 6380
       password: 1234
 
+  kafka:
+    bootstrap-servers: localhost:29092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      properties:
+        enable:
+          idempotence: true
+        max:
+          in:
+            flight:
+              requests:
+                per:
+                  connection: 5
+          block:
+            ms: 90000
+        retry:
+          backoff:
+            ms: 1000
+
+    consumer:
+      group-id: ${spring.application.name}
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
 logging:
   level:
     org.hibernate.SQL: DEBUG

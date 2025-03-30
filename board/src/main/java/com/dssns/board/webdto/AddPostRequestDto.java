@@ -1,6 +1,7 @@
 package com.dssns.board.webdto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -20,6 +21,11 @@ public class AddPostRequestDto {
 	private String postContent;
 	@Schema(example = "BASIC", description = "게시글 타입")
 	private String postType;
+
+	// FIXME 추후 SecurityContextHolder.getContext().getAuthentication()에서 가져오도록 수정
+	@Schema(example = "1", description = "생성 유저 번호")
+	@NotNull
+	private long createUserNo;
 
 //	TODO 추후.
 //	@Builder.Default
