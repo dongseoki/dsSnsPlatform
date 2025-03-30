@@ -14,4 +14,6 @@
 ### 쉘 B
 ```sh
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --topic test-topic --bootstrap-server localhost:9092 --from-beginning
+
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --topic notification-events --bootstrap-server localhost:9092 --from-beginning
 ```
